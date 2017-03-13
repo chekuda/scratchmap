@@ -1,40 +1,69 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>scratchMap</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Scratch Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 </head>
+
 <body>
-    <form class="form-signin" id="formLogin" ref="data">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" name="username" placeholder="Email address" id ="userName" class="input-block-level">
-        <input type="password" name="password" placeholder="Password" id ="password" class="input-block-level">
-        <button type="submit" class="btn btn-large btn-primary">Sign in</button>
+    <!--login modal-->
+    <form id="formLogin" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="text-center">Sign in</h1>
+                </div>
+                <div class="modal-body">
+                    <form class="form col-md-12 center-block">
+                        <div class="form-group">
+                            <input id="userName" type="text" class="form-control input-lg" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input id="password" type="password" class="form-control input-lg" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </form>
-<script>
-    
-    function checkSuccess(response) {
-        if(response.success){
-            window.location.href = 'http://www.google.com';
-        }
-    }
-    document.getElementById('formLogin').addEventListener('submit',  function(event){
-        var request,
-            data = {};
-        
-        event.preventDefault(); 
-
-        data.name = document.getElementById('userName').value;
-        data.password = document.getElementById('password').value;
-
-        request = new XMLHttpRequest();
-        request.open('post','/login');
-        request.setRequestHeader('Content-Type', 'application/json'); 
-        request.onreadystatechange = function(){
-            if (request.readyState == 4 && request.status == 200){
-                checkSuccess(JSON.parse(request.responseText)); // Another callback here
+    <!-- script references -->
+    <script>
+        function checkSuccess(response) {
+            if (response.success) {
+                window.location.href = 'http://www.google.com';
             }
-        };
-        request.send(JSON.stringify(data));
-    })
-</script>
+        }
+
+        document.getElementById('formLogin').addEventListener('submit', function (event) {
+            var request,
+                data = {};
+
+            event.preventDefault();
+
+            data.name = document.getElementById('userName').value;
+            data.password = document.getElementById('password').value;
+
+            request = new XMLHttpRequest();
+            request.open('post', '/login');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    checkSuccess(JSON.parse(request.responseText)); // Another callback here
+                }
+            };
+            request.send(JSON.stringify(data));
+        })
+    </script>
 </body>
+
 </html>
