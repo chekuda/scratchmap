@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>scratchMap</title>
+</head>
+<body>
+    <form class="form-signin" id="formLogin" ref="data">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" name="username" placeholder="Email address" id ="userName" class="input-block-level">
+        <input type="password" name="password" placeholder="Password" id ="password" class="input-block-level">
+        <button type="submit" class="btn btn-large btn-primary">Sign in</button>
+    </form>
+<script>
+    
+    function checkSuccess(response) {
+        if(response.success){
+            window.location.href = 'http://www.google.com';
+        }
+    }
+    document.getElementById('formLogin').addEventListener('submit',  function(event){
+        var request,
+            data = {};
+        
+        event.preventDefault(); 
+
+        data.name = document.getElementById('userName').value;
+        data.password = document.getElementById('password').value;
+
+        request = new XMLHttpRequest();
+        request.open('post','/login');
+        request.setRequestHeader('Content-Type', 'application/json'); 
+        request.onreadystatechange = function(){
+            if (request.readyState == 4 && request.status == 200){
+                checkSuccess(JSON.parse(request.responseText)); // Another callback here
+            }
+        };
+        request.send(JSON.stringify(data));
+    })
+</script>
+</body>
+</html>
