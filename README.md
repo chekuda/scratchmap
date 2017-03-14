@@ -3,3 +3,5 @@ SPA:
   - BackEnd: 
     - NodeJS
     - Express
+  - FrontEnd:
+  	- HTML
