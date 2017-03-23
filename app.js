@@ -1,5 +1,8 @@
+require('dotenv').config({silent: true});
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const documentDbClient = require('./documentdbClient.js');
 
 const server = express();
 
@@ -27,4 +30,5 @@ server.listen(port, (err) => {
 		console.log(`Error thrown ${err}`);
 	}
     console.log(`Listening on port ${port}`);
+    documentDbClient.test();
 });
